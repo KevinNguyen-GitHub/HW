@@ -62,3 +62,7 @@ def gcd(a,b):
 
 print(gcd(2349, 36))
 print(bezout_coeffs(26,7))
+
+def prac():
+    #this is me trying out random shit
+    pass

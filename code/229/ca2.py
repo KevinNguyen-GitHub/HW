@@ -210,7 +210,7 @@ def bezout_coeffs(a, b):
         s0, s = s, s0 - quotient*s
         t0, t = t, t0 - quotient*t
     if b < 0:
-        return {dict.get('a'):-(s0),dict.get('b'):-(t0)}
+        return {dict.get('a'):(s0*-1),dict.get('b'):(t0*-1)}
 
     else:
         return {dict.get('a'):s0,dict.get('b'):t0}

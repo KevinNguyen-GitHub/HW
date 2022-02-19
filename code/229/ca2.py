@@ -204,17 +204,21 @@ def bezout_coeffs(a, b):
     b = b
     a = a
     dict = {'a':a,'b':b}
-    while b != 0:
-        quotient = a//b 
-        a, b = b, a - quotient*b
-        s0, s = s, s0 - quotient*s
-        t0, t = t, t0 - quotient*t
     if b < 0:
+        while b != 0:
+            quotient = a//b 
+            a, b = b, a - quotient*b
+            s0, s = s, s0 - quotient*s
+            t0, t = t, t0 - quotient*t
         return {dict.get('a'):(s0*-1),dict.get('b'):(t0*-1)}
 
     else:
+        while b != 0:
+            quotient = a//b 
+            a, b = b, a - quotient*b
+            s0, s = s, s0 - quotient*s
+            t0, t = t, t0 - quotient*t
         return {dict.get('a'):s0,dict.get('b'):t0}
-
 
 
 # %% [markdown]

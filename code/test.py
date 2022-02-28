@@ -1,54 +1,77 @@
-# def prime_eratosthenes(a,b):
-#     prime_list = []
-#     prime = []
-#     for i in range(a, b+1):
-#         if i not in prime_list:
-#             prime.append(i)
-#             for j in range(i*i, b+1, i):
-#                 prime_list.append(j)
-#     print(prime)
-#     print(prime_list)
-
-# print(prime_eratosthenes(50,100));
-
-
-# def extended_gcd(a, b):
-#     if a == 0:
-#         return b, 0, 1
-#     else:
-#         gcd, x, y = extended_gcd(b % a, a)
-#         return gcd, y - (b // a) * x, x
-
-# print(extended_gcd(26,7))
-# k=int(input('lower bounds: '))
-# n=int(input("upper bounds: "))
-# primes = []
-# for i in range (k+1, n+1):
-#     for j in range(2, i):
-#         if i%j == 0:
-#             break
-#     else:
-#         primes.append(i)
-# print(primes)
-
 def bezout_coeffs(a, b):
-    s = 0; old_s = 1
-    t = 1; old_t = 0
-    r = b; old_r = a
-    while r != 0:
-        temp = 0
-        quotient = old_r//r 
-        print(quotient)
-        temp = old_r
-        old_r = r
-        r = temp - quotient*r
-        old_s, s = s, old_s - quotient*s
-        old_t, t = t, old_t - quotient*t
-        print(old_r,r,old_s,s,old_t,t)
-    return {'a':old_s, 'b':old_t}
-   
+    s = 0
+    s0 = 1
+    t = 1
+    t0 = 0
+    b = b
+    a = a
+    dict = {'a':a,'b':b}
+    if b < 0:
+        while b != 0:
+            quotient = a//b 
+            a, b = b, a - quotient*b
+            s0, s = s, s0 - quotient*s
+            t0, t = t, t0 - quotient*t
+        return {dict.get('a'):(s0*-1),dict.get('b'):(t0*-1)}
 
-print(bezout_coeffs(414,662))
+    else:
+        while b != 0:
+            quotient = a//b 
+            a, b = b, a - quotient*b
+            s0, s = s, s0 - quotient*s
+            t0, t = t, t0 - quotient*t
+        return {dict.get('a'):s0,dict.get('b'):t0}
+
+def gcd(a,b):
+    dict = bezout_coeffs(a, b)
+    return abs((a * dict.get(a) + b * dict.get(b)))
+
+def digits2letters(digits):
+    letters = ""
+    start = 0  #initializing starting index of first digit
+    while start <= len(digits) - 2:
+        digit = digits[start : start + 2]  # accessing the double digit
+        letters += chr( int(digit) +65)   # concatenating to the string of letters
+        start += 2                         # updating the starting index for next digit
+    return letters
+
+def letters2digits(letters):
+    digits = ""
+    for c in letters:
+        if c.isalpha():
+            letter = c.upper()  #converting to uppercase  
+            d = ord(letter)-65
+            if d < 10:
+                digits += "0" + str(d)     # concatenating to the string of digits
+            else:
+                digits += str(d)
+    return digits
+
+def affineEncrypt(text, a, b):
+    """encrypts the plaintext 'text', using an affine transformation key (a, b)
+    INPUT:  text - plaintext as a string of letters
+            a - integer satisfying gcd(a, 26) = 1.  Raises error if such is not the case
+            b - integer 
+            
+    OUTPUT: The encrypted message as a string of characters
+    """
+    if gcd(a,26) != 1:
+      raise ValueError('The given key is invalid. The gcd(a,26) must be 1')
+    text = ''
+    num = []
+    for i in text:
+        num.append(int(letters2digits(i)))
+    print(num)
+    for i in range(len(num)):
+        num[i] = (num[i]+b)%26
+        if num[i] < 10:
+            num[i] = "0" + str(num[i])
+        else:
+            num[i] = str(num[i])
+    print(num)
+    text = ''.join(num)
+    print(digits2letters(text))
+    
+affineEncrypt('apple',1,4)
 
 
-'"',a,'"'

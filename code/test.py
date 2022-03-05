@@ -47,31 +47,6 @@ def letters2digits(letters):
                 digits += str(d)
     return digits
 
-def affineEncrypt(text, a, b):
-    """encrypts the plaintext 'text', using an affine transformation key (a, b)
-    INPUT:  text - plaintext as a string of letters
-            a - integer satisfying gcd(a, 26) = 1.  Raises error if such is not the case
-            b - integer 
-            
-    OUTPUT: The encrypted message as a string of characters
-    """
-    if gcd(a,26) != 1:
-      raise ValueError('The given key is invalid. The gcd(a,26) must be 1')
-    text = ''
-    num = []
-    for i in text:
-        num.append(int(letters2digits(i)))
-    print(num)
-    for i in range(len(num)):
-        num[i] = (num[i]+b)%26
-        if num[i] < 10:
-            num[i] = "0" + str(num[i])
-        else:
-            num[i] = str(num[i])
-    print(num)
-    text = ''.join(num)
-    print(digits2letters(text))
-    
-affineEncrypt('apple',1,4)
+print(3**2)
 
 

@@ -47,9 +47,31 @@ def letters2digits(letters):
                 digits += str(d)
     return digits
 
-num = [1,2,3,4,5,6,7,8,9,10]
-for i in range(len(num),0,2):
-    print(num[i])
+text = 'apples'
+num = ['1','2','3','4','5','6','7','8','9','10']
+
+val = ''
+# for i in range(2,len(num)):
+#     num[i-2 : i] = [''.join(num[i-2 : i])]
+# num = list(filter(None,num))
+# print(num)
+for i in num:
+    val += i
+print(val)
+
+def tester():
+    test_list = ['I', 'L', 'O', 'V', 'E', 'G', 'F', 'G']
+  
+    # printing original list
+    print ("The original list is : " + str(test_list))
+    
+    # using join() + list slicing
+    # merging list elements
+    test_list[0 : 8] = [''.join(test_list[0 : 8])]
+    
+    # printing result 
+    print ("The list after merging elements : " +  str(test_list))
+
 
 
 

@@ -119,12 +119,13 @@ def affineEncrypt(text, a, b):
     """
     if gcd(a,26) != 1:
       raise ValueError('The given key is invalid. The gcd(a,26) must be 1')
-    text = text
+    text = text.replace(' ','')
     num = []
+
     for i in text:
         num.append(int(letters2digits(i)))
     for i in range(len(num)):
-        num[i] = (num[i]+b)%26
+        num[i] = ((a*num[i])+b)%26
         if num[i] < 10:
             num[i] = "0" + str(num[i])
         else:
@@ -149,10 +150,11 @@ def affineDecrypt(ciphertext, a, b):
         raise ValueError('The given key is invalid. The gcd(a,26) must be 1')
     text = ciphertext
     num=[]
+    a = modinv(a,26)
     for i in text:
         num.append(int(letters2digits(i)))
     for i in range(len(num)):
-        num[i] = (num[i]-b)%26
+        num[i] = (a*(num[i]-b))%26
         if num[i] < 10:
             num[i] = "0" + str(num[i])
         else:
@@ -195,9 +197,11 @@ def encryptRSA(m, n, e):
         num[i] = str(num[i])
     for i in range(len(num)):
         if len((num[i])) < l:
-            num[i] = '0'+num[i]
+            for j in range(l - len((num[i]))):
+                num[i] = '0'+num[i]
     text = ' '.join(num)
     return text
+
 
 # %%
 """--------------------- ENCRYPTION TESTER CELL ---------------------------"""
@@ -249,7 +253,6 @@ def decryptRSA(c, p, q, e):
             num[i] = '0'+num[i]
     text = ''.join(num)
     return digits2letters(text)
-
 
 # %%
 """--------------------- TESTER CELL ---------------------------"""

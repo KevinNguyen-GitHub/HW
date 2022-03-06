@@ -271,5 +271,3 @@ def blocksize(n):
     return len(twofive) - 2
 
 
-
-# %%
